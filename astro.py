@@ -45,21 +45,13 @@ def main():
 
 def planning():
     while True:
-        options = ["Open Stellarium", "Open LightPollutionmap", "TimeAndDate Astronomy", "Back"]
+        options = ["Cloud Radar", "LightPollutionmap", "", "Back"]
         terminal_menu = TerminalMenu(options)
         menu_entry_index = terminal_menu.show()
 
         choice = options[menu_entry_index]
         print(f"[ DEBUG ] You have selected {choice}!")
 
-        if choice == "Open Stellarium":
-            @spinner("Opening Stellarium", capture=True)
-            async def do_some_work():
-                await asyncio.sleep(2)
-                os.system("stellarium")
-            asyncio.run(do_some_work())
-
-            logo()
         if choice == "Open LightPollutionmap":
             print ("Opening LightPollutionmap")
             os.system("firefox https://www.lightpollutionmap.info/")
@@ -74,11 +66,58 @@ def planning():
 
 
 def websites():
-    print("websites")
+    while True:
+        options = ["Open Stellarium", "Open LightPollutionmap", "TimeAndDate Astronomy", "Back"]
+        terminal_menu = TerminalMenu(options)
+        menu_entry_index = terminal_menu.show()
 
+        choice = options[menu_entry_index]
+        print(f"[ DEBUG ] You have selected {choice}!")
+
+        if choice == "Open LightPollutionmap":
+            print ("Opening LightPollutionmap")
+            os.system("firefox https://www.lightpollutionmap.info/")
+            logo ()
+
+        if choice == "TimeAndDate Astronomy":
+            print ("Opening TaDA")
+            os.system("firefox https://www.timeanddate.com/astronomy")
+
+        elif choice == "Back":
+            break
 
 def applications():
-    print("applications")
+    while True:
+        options = ["Open Stellarium", "Open Siril", "Back"]
+        terminal_menu = TerminalMenu(options)
+        menu_entry_index = terminal_menu.show()
+
+        choice = options[menu_entry_index]
+        print(f"[ DEBUG ] You have selected {choice}!")
+
+        if choice == "Open Stellarium":
+            @spinner("Opening Stellarium", capture=True)
+            async def launch_stellarium():
+                await asyncio.sleep(2)
+                os.system("stellarium")
+            
+            asyncio.run(launch_stellarium())
+            logo()
+
+        elif choice == "Open Siril":
+            # Fixed the spinner text here
+            @spinner("Opening Siril", capture=True)
+            async def launch_siril():
+                await asyncio.sleep(2)
+                os.system("siril")
+
+            # Fixed: added () to execute the coroutine
+            asyncio.run(launch_siril())
+            logo()
+
+        elif choice == "Back":
+            break
+
 
 
 if __name__ == "__main__":
